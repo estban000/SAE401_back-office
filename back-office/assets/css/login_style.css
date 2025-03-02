@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+}
+/* Conteneur principal du formulaire */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Titre */
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Champs de formulaire */
+.login-container label {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Bouton de connexion */
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Bouton pour revenir a la page PORTFOLIO */
+.btn-other {
+    display: block;
+    margin-top: 10px;
+    background-color: #555;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-other:hover {
+    background-color: #777;
+}
+.login-container button:hover {
+    background-color: #2980b9;
+}
+
+/* Message d'erreur */
+.error-message {
+    color: red;
+    background: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+}
+
+/* 📌 MEDIA QUERIES : Responsiveness */
+@media screen and (max-width: 480px) {
+    .login-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .login-container input {
+        font-size: 14px;
+    }
+
+    .login-container button {
+        font-size: 14px;
+    }
+}
