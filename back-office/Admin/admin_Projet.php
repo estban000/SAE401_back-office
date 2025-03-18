@@ -58,19 +58,11 @@ $resultat = mysqli_query($connexion, "SELECT * FROM projets");
     <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
+    <?php
+	require('admin_header.php');
+	?>
 
-    <!-- Barre de navigation -->
-    <nav class="navbar">
-        <h1>Administration</h1>
-        <ul class="nav-links">
-            <li><a href="admin_Reseau.php">Réseaux Sociaux</a></li>
-            <li><a href="admin_Projet.php">Projets</a></li>
-            <li><a href="../index.php">Revenir au Portfolio</a></li>
-            <li><a href="admin_logout.php" class="logout-btn">Déconnexion</a></li>
-        </ul>
-    </nav>
-
-    <!-- Conteneur principal -->
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Gestion des Projets</h2>
         <a href="admin_ajoutProjet.php" class="btn-add"><i class="fa fa-plus"></i> Ajouter</a>
@@ -94,7 +86,7 @@ $resultat = mysqli_query($connexion, "SELECT * FROM projets");
                         <?php
                         $imagePath = "../" . htmlspecialchars($row['image']); // pour accéder au dossier uploads
                         if (file_exists($imagePath)) {
-                            echo '<img src="' . $imagePath . '" alt="Image projet" width="80" class="project-image">';
+                            echo '<img src="' . $imagePath . '" alt="Image projet" width="80" height="80" class="project-image">';
                         } else {
                             echo '<p style="color: red;">Image non trouvée : ' . $imagePath . '</p>';
                         }

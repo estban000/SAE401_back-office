@@ -37,8 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die("<p class='error-message'>Le fichier est trop volumineux (max 10 Mo).</p>");
         }
 
+        // Vérification de l'existence du fichier temporaire
+        $tempFile = $_FILES["image"]["tmp_name"];
+        if (!file_exists($tempFile)) {
+            die("<p class='error-message'>Erreur : le fichier temporaire n'existe pas.</p>");
+        }
+
+        echo "<p>Chemin de destination : " . realpath($targetDir) . "/" . $fileName . "</p>";
         // Déplacement du fichier uploadé
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+        if (move_uploaded_file($tempFile, $targetFilePath)) {
             // Stocker le chemin relatif en base de données
             $imagePath = "uploads/" . $fileName;
             $sql = "INSERT INTO projets (titre, description, image) VALUES ('$titre', '$description', '$imagePath')";
@@ -69,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	require('admin_header.php');
 	?>
 
-    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Ajouter un Projet</h2>
         <?= !empty($message) ? $message : '' ?>
@@ -89,7 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="image">Ajouter une image :</label>
                 <input type="file" name="image" class="form-input file-input" accept="image/*" required>
             </div>
-            <div class="drop-zone" id="drop-zone">Glissez-déposez une image ici</div>
 
             <button type="submit" class="btn-submit">Valider</button>
         </form>
@@ -98,5 +103,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </body>
-<script src="../assets/js/drag_drop.js"></script>
 </html>

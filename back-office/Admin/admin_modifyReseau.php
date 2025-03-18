@@ -31,15 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <nav class="navbar">
-        <h1>Administration</h1>
-        <ul class="nav-links">
-            <li><a href="admin_logout.php" class="logout-btn">Déconnexion</a></li>
-        </ul>
-    </nav>
+    <?php
+	require('admin_header.php');
+	?>
 
-    <!-- Contenu principal -->
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu principal xxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Modification du Réseau Social</h2>
 

@@ -277,6 +277,33 @@ h2 {
     }
 }
 
+/*   PARTIE DRAG & DROP D'IMAGE   */
+.drop-zone {
+    width: 100%;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.drop-zone.drag-over {
+    border-color: #4267B2;
+    background-color: #e3eafc;
+    box-shadow: 0 0 10px rgba(66, 103, 178, 0.5);
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: #000;
+    background-color: #e9e9e9;
+}
+
+
 @media screen and (max-width: 480px) {
     .form-container {
         width: 100%;

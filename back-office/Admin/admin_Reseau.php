@@ -29,18 +29,11 @@ $resultat = mysqli_query($connexion, "SELECT * FROM ReseauSociaux");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <nav class="navbar">
-        <h1>Administration</h1>
-        <ul class="nav-links">
-            <li><a href="admin_Reseau.php">Réseaux Sociaux</a></li>
-            <li><a href="admin_Projet.php">Projets</a></li>
-            <li><a href="../index.php">Revenir au Portfolio</a></li>
-            <li><a href="admin_logout.php" class="logout-btn">Déconnexion</a></li>
-        </ul>
-    </nav>
+    <?php
+	require('admin_header.php');
+	?>
 
-    <!-- Conteneur principal -->
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Gestion des Réseaux Sociaux</h2>
         <a href="admin_ajoutReseau.php" class="btn-add"><i class="fa fa-plus"></i> Ajouter</a>
