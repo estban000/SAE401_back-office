@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
 	require('admin_header.php');
 	?>
-    
-    <!-- Contenu principal -->
+
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Ajouter un Réseau Social</h2>
 

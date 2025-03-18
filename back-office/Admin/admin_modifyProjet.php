@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	require('admin_header.php');
 	?>
 
-    <!-- Contenu Principal -->
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Modifier un Projet</h2>
 
