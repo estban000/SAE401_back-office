@@ -79,6 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="titre">Titre du projet :</label>
                 <input type="text" name="titre" class="form-input" required>
             </div>
+            <!--
+            <div class="form-group">
+                <label for="categorie">Catégorie du projet:</label>
+            </div>-->
 
             <div class="form-group">
                 <label for="description">Description :</label>

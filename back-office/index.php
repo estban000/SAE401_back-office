@@ -26,20 +26,21 @@
 		<!-- Main -->
 			<div id="main">
 
-				<!-- INTRODUCTION DE MOI MEME -->
+				<!-- DESCRIPTION DE MOI -->
 					<section id="one">
 						<header class="major">
-							<h2>Petite description sur Moi</h2>
+							<h2>Description de Moi</h2>
 						</header>
-						<p>Personne de nature calme et motivé à donner le nécessaire pour le travail, mes hobbies ? Les jeux-vidéo de tout type avec les potes (un vrai Gameur).</p>
+						<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Personne de nature calme et motivé à donner le nécessaire pour le travail, le peu d'experience se resume à aidé au chantier (père ouvrier) mais ça m'aura appris le travail en équipe.<br/>Ce site permet d'observer l'ensemble des projets réalisé au cours de mon année universitaire et qui me servent de valise pour celles et ceux qui sont interreser par mon profile. <br/>Mes hobbies ? Les jeux-vidéo de tout type avec les potes (un vrai Gameur).</p>
 						<ul class="actions">
 							<li><a href="https://drive.google.com/file/d/15ydaPurVqEU3gjz14s-BVDPTRFp2kojJ/view?usp=sharing class="button">Voir le CV</a></li>
 						</ul>
 					</section>
 
-				<!-- PARTIE PROJET (DYNAMIQUE) -->
+				<!-- PORTFOLIO (entièrement dynamique) -->
 					<section id="two">
-						<h2>Projets réalisés</h2>
+						<h2>PORTFOLIO</h2>
+						<blockquote>Ensemble de Projets réalisé durant mes années Universitaire.</blockquote>
 						<div class="row">
 							<?php while ($row = mysqli_fetch_assoc($resultat)) { ?>
 								<article class="col-6 col-12-xsmall work-item">
@@ -51,7 +52,7 @@
 						</div>
 					</section>
 
-				<!-- Three -->
+				<!-- CONTACTEZ-MOI -->
 					<section id="three">
 						<h2>Contactez-Moi :D</h2>
 						<p>N'hésitez pas à me contacter je vous répondrais dans les plus brefs délais.</p>
