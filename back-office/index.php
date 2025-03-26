@@ -33,7 +33,7 @@
 						</header>
 						<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Personne de nature calme et motivé à donner le nécessaire pour le travail, le peu d'experience se resume à aidé au chantier (père ouvrier) mais ça m'aura appris le travail en équipe.<br/>Ce site permet d'observer l'ensemble des projets réalisé au cours de mon année universitaire et qui me servent de valise pour celles et ceux qui sont interreser par mon profile. <br/>Mes hobbies ? Les jeux-vidéo de tout type avec les potes (un vrai Gameur).</p>
 						<ul class="actions">
-							<li><a href="https://drive.google.com/file/d/1e5zLEF2j7guQbxQHHW-DXvxGYOdrTfhD/view?usp=sharing" download="CV.pdf" class="button">Telecharger mon CV</a></li>
+							<li><a href="https://drive.google.com/uc?export=download&id=1e5zLEF2j7guQbxQHHW-DXvxGYOdrTfhD" class="button" download="BANOL MORENO_CV.pdf">Télécharger le CV</a></li>
 						</ul>
 					</section>
 
