@@ -121,7 +121,7 @@ mysqli_close($connexion);
                     <?php foreach ($categories as $categorie): ?>
                         <option value="<?= htmlspecialchars($categorie['id']) ?>">
                             <?= htmlspecialchars($categorie['NomCategory']) ?>
-                        </option>
+                        </option required>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -139,7 +139,6 @@ mysqli_close($connexion);
 
             <button type="submit" class="btn-submit">Valider</button>
         </form>
-
         <a href="admin_Projet.php" class="btn-back">Retour</a>
     </div>
 
