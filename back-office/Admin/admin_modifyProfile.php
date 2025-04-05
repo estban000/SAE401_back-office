@@ -13,7 +13,7 @@ if (!isset($_GET["id"])) {
 }
 
 $id = intval($_GET["id"]);
-$result = mysqli_query($connexion, "SELECT * FROM Profils WHERE id=$id");
+$result = mysqli_query($connexion, "SELECT * FROM ProfileBlock WHERE id=$id");
 $profil = mysqli_fetch_assoc($result);
 
 if (!$profil) {
@@ -58,31 +58,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier un Profil</title>
+    <title>Administration - Modifier Profile</title>
     <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
     <?php require('admin_header.php'); ?>
 
     <div class="container">
-        <h2>Modifier un Profil</h2>
-        <form action="admin_modifyProfile.php?id=<?= $id ?>" method="post" enctype="multipart/form-data">
-            <label for="imageProfile">Image de Profil :</label>
-            <input type="file" name="imageProfile" id="imageProfile" accept="image/*">
-            <img src="../uploads/<?= htmlspecialchars($profil['imageProfile']) ?>" alt="Profile Image" width="50">
+        <h2>Modifier le Profile description</h2>
+        <form action="admin_modifyProfile.php?id=<?= $id ?>" method="post" enctype="multipart/form-data" class="form-container">
+            <div class="form-group">
+                <label for="imageProfile">Image de Profil :</label>
+                <input type="file" name="imageProfile" id="imageProfile" accept="image/*" class="form-input">
+                <img src="../uploads/imgProfile/<?= htmlspecialchars($profil['imageProfile']) ?>" alt="Profile Image" width="50">
+            </div>
             
-            <label for="texteDescription">Description :</label>
-            <textarea name="texteDescription" id="texteDescription" required><?= htmlspecialchars($profil['texteDescription']) ?></textarea>
+            <div class="form-group">
+                <label for="texteDescription">Description :</label>
+                <textarea name="texteDescription" id="texteDescription" class="form-input" required><?= htmlspecialchars($profil['texteDescription']) ?></textarea>
+            </div>
             
-            <label for="cv">CV (PDF) :</label>
-            <input type="file" name="cv" id="cv" accept="application/pdf">
-            <a href="../uploads/cv/<?= htmlspecialchars($profil['cv']) ?>" target="_blank">Télécharger le CV</a>
+            <div class="form-group">
+                <label for="cv">CV (PDF) :</label>
+                <input type="file" name="cv" id="cv" accept="application/pdf" class="form-input">
+                <a href="../uploads/cv/<?= htmlspecialchars($profil['cv']) ?>" target="_blank" class="file-link">Télécharger le CV</a>
+            </div>
             
-            <button type="submit">Mettre à jour</button>
+            <button type="submit" class="btn btn-add">Mettre à jour</button>
         </form>
 
         <!-- Bouton de retour -->
-        <a href="admin_profile.php" class="btn-back">Retour</a>
+        <a href="admin_profile.php" class="btn btn-back">Retour</a>
     </div>
 </body>
 </html>

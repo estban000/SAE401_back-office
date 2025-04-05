@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Profile</title>
+    <title>Administration - Ajouter un Profile</title>
     <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
@@ -49,18 +49,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <div class="container">
         <h2>Ajouter un Profil</h2>
-        <form action="admin_ajoutProfile.php" method="post" enctype="multipart/form-data">
-            <label for="imageProfile">Image de Profile :</label>
-            <input type="file" name="imageProfile" id="imageProfile" accept="image/*" required>
+
+        <form action="admin_ajoutProfile.php" method="post" enctype="multipart/form-data" class="form-container">
+            <div class="form-group">
+                <label for="imageProfile">Image de Profil :</label>
+                <input type="file" name="imageProfile" id="imageProfile" accept="image/*" class="form-input" required>
+            </div>
             
-            <label for="texteDescription">Description :</label>
-            <textarea name="texteDescription" id="texteDescription" required></textarea>
+            <div class="form-group">
+                <label for="texteDescription">Description :</label>
+                <textarea name="texteDescription" id="texteDescription" class="form-input" required></textarea>
+            </div>
             
-            <label for="cv">CV (au format PDF) :</label>
-            <input type="file" name="cv" id="cv" accept="application/pdf" required>
+            <div class="form-group">
+                <label for="cv">CV (au format PDF) :</label>
+                <input type="file" name="cv" id="cv" accept="application/pdf" class="form-input" required>
+            </div>
             
-            <button type="submit">Ajouter</button>
+            <button type="submit" class="btn btn-add">Ajouter</button>
         </form>
+
+        <!-- Bouton de retour -->
+        <a href="admin_profile.php" class="btn btn-back">Retour</a>
     </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer id="footer">
 	<div class="inner">
-		<!-- xxxxxxxxxxxxxxxxxxxxxx  Menu RESEAU SOCIAUX (dynamique)  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+		<!-- xxxxxxxxxxxxxxxxxxxxxx  RESEAU SOCIAUX (entièrement dynamique)  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 		<ul class="icons">
 			<?php
 				// Requête SQL

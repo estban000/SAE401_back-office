@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Strata by HTML5 UP</title>
+		<title>BANOL MORENO Marcell</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -26,16 +26,34 @@
 		<!-- Main -->
 			<div id="main">
 
-				<!-- DESCRIPTION DE MOI -->
-					<section id="one">
-						<header class="major">
-							<h2>Description de Moi</h2>
-						</header>
-						<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Personne de nature calme et motivé à donner le nécessaire pour le travail, le peu d'experience se resume à aidé au chantier (père ouvrier) mais ça m'aura appris le travail en équipe.<br/>Ce site permet d'observer l'ensemble des projets réalisé au cours de mon année universitaire et qui me servent de valise pour celles et ceux qui sont interreser par mon profile. <br/>Mes hobbies ? Les jeux-vidéo de tout type avec les potes (un vrai Gameur).</p>
+				<!-- DESCRIPTION DE MOI (entièrement dynamique) -->
+				<section id="one">
+					<header class="major">
+						<h2>Profile</h2>
+					</header>
+
+					<?php
+					$result = mysqli_query($connexion, "SELECT * FROM ProfileBlock ORDER BY id DESC LIMIT 1");
+					$profil = mysqli_fetch_assoc($result);
+					?>
+
+					<?php if ($profil): ?>
+						<p>
+							<span class="image left">
+								<img src="uploads/imgProfil/<?= htmlspecialchars($profil['imageProfile']) ?>" alt="Photo de profil" />
+							</span>
+							<?= nl2br(htmlspecialchars($profil['texteDescription'])) ?>
+						</p>
 						<ul class="actions">
-							<li><a href="https://drive.google.com/uc?export=download&id=1e5zLEF2j7guQbxQHHW-DXvxGYOdrTfhD" class="button" download="BANOL MORENO_CV.pdf">Télécharger mon CV</a></li>
+							<li>
+								<a href="uploads/cv/<?= htmlspecialchars($profil['cv']) ?>" class="button" download>Télécharger mon CV</a>
+							</li>
 						</ul>
-					</section>
+					<?php else: ?>
+						<p>Aucune description n’a pas encore été ajoutée.</p>
+					<?php endif; ?>
+				</section>
+
 
 				<!-- PORTFOLIO (entièrement dynamique) -->
 					<section id="two">
@@ -54,7 +72,7 @@
 
 				<!-- CONTACTEZ-MOI -->
 					<section id="three">
-						<h2>Contactez-Moi :D</h2>
+						<h2>Contact me :D</h2>
 						<p>N'hésitez pas à me contacter je vous répondrais dans les plus brefs délais.</p>
 						<div class="row">
 							<div class="col-8 col-12-small">
