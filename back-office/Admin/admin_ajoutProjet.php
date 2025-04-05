@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $categorie_id = (int) $_POST["categorie"];
 
     // Vérifier que la catégorie sélectionnée existe bien en base de données
-    $sql_check_categorie = "SELECT id FROM categories WHERE id = ?";
+    $sql_check_categorie = "SELECT id FROM Categories WHERE id = ?";
     $stmt_check = mysqli_prepare($connexion, $sql_check_categorie);
     mysqli_stmt_bind_param($stmt_check, "i", $categorie_id);
     mysqli_stmt_execute($stmt_check);

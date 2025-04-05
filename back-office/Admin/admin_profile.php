@@ -40,7 +40,7 @@ $resultat = mysqli_query($connexion, "SELECT * FROM ProfileBlock");
                 <?php while ($row = mysqli_fetch_assoc($resultat)) { ?>
                 <tr>
                     <td class="icon-cell">
-                        <img src="../uploads/imgProfile/<?= htmlspecialchars($row['imageProfile']) ?>" alt="Profile Image" width="50">
+                        <img src="../uploads/imgProfil/<?= htmlspecialchars($row['imageProfile']) ?>" alt="Profile Image" width="50">
                     </td>
                     <td><?= htmlspecialchars($row['texteDescription']) ?></td>
                     <td>

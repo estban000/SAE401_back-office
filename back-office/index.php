@@ -16,8 +16,26 @@
 		require('connexionTableSQL.php');
 		?>
 		<?php
+			// Récupération des catégories disponibles dans les projets
+			$categories_result = mysqli_query($connexion, "
+				SELECT DISTINCT c.id, c.NomCategory
+				FROM projets p
+				JOIN Categories c ON p.categorie_id = c.id
+			");
+
+			// Récupération de la catégorie sélectionnée via GET (si elle existe)
+			$categorie_filtre = isset($_GET['categorie']) ? (int) $_GET['categorie'] : 0;
+
+			// Récupération des projets
+			$sql = "SELECT * FROM projets";
+			if ($categorie_filtre > 0) {
+				$sql .= " WHERE categorie_id = $categorie_filtre";
+			}
+			$resultat = mysqli_query($connexion, $sql);
+
+			
 		// Récupération des projets
-		$resultat = mysqli_query($connexion, "SELECT * FROM projets");
+		//$resultat = mysqli_query($connexion, "SELECT * FROM projets");
 		?>
 		<?php
 		require('header.php');
@@ -59,6 +77,18 @@
 					<section id="two">
 						<h2>PORTFOLIO</h2>
 						<blockquote>Ensemble de Projets réalisé durant mes années Universitaire.</blockquote>
+						<!-- Liste déroulante des catégories -->
+						<form method="get" style="margin-bottom: 1em;">
+							<label for="categorie">Filtrer par catégorie :</label>
+							<select name="categorie" id="categorie" onchange="this.form.submit()">
+								<option value="0">Toutes les catégories</option>
+								<?php while ($cat = mysqli_fetch_assoc($categories_result)): ?>
+									<option value="<?= $cat['id'] ?>" <?= ($cat['id'] == $categorie_filtre) ? 'selected' : '' ?>>
+										<?= htmlspecialchars($cat['NomCategory']) ?>
+									</option>
+								<?php endwhile; ?>
+							</select>
+						</form>
 						<div class="row">
 							<?php while ($row = mysqli_fetch_assoc($resultat)) { ?>
 								<article class="col-6 col-12-xsmall work-item">

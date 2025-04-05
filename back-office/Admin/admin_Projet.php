@@ -17,7 +17,7 @@ if (isset($_GET["delete"])) {
     $query = mysqli_query($connexion, "SELECT image FROM projets WHERE id=$id");
     $row = mysqli_fetch_assoc($query);
     if ($row) {
-        $imagePath = "../" . $row["image"]; // Ajouter "../" pour accéder au dossier uploads
+        $imagePath = "../" . $row["image"];
         // Vérifier si le fichier existe avant de tenter de le supprimer
         if (file_exists($imagePath)) {
             if (unlink($imagePath)) {
