@@ -26,17 +26,41 @@ body{
     display: inline;
 }
 
+/* Bouton navigation Administrations */
 .nav-links a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent; /* Ajout d'un contour transparent par défaut */
     transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #f39c12;
+    color: sandybrown; /* Texte devient blanc lors du survol */
+    background-color: white; /* Fond au survol */
+    border-color: white; /* Contour au survol */
 }
 
+/* Bouton "Revenir au Portfolio" */
+.nav-links .portfolio-btn {
+    background-color: transparent;
+    color: #f39c12; /* Texte doré */
+    border: 2px solid #f39c12; /* Contour doré */
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.nav-links .portfolio-btn:hover {
+    background-color: #f39c12; /* Fond doré au survol */
+    color: white; /* Texte devient blanc */
+    border-color: #f39c12; /* Contour doré */
+    transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Bouton déconnexion */
 .logout-btn {
     background-color: red;
     color: white;
@@ -44,11 +68,14 @@ body{
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    transition: background 0.3s;
+    border: 2px solid transparent; /* Contour transparent par défaut */
+    transition: background 0.3s, border-color 0.3s;
 }
 
 .logout-btn:hover {
     background-color: darkred;
+    border-color: darkred; /* Contour rouge au survol */
+    transform: translateY(-2px); /* Légère élévation */
 }
 
 /* CONTENEUR PRINCIPAL */

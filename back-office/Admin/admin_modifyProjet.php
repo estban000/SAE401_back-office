@@ -7,106 +7,164 @@ if (!isset($_SESSION["admin"])) {
 
 require('../connexionTableSQL.php');
 
-// Vérification de l'existence du projet
-if (!isset($_GET["id"])) {
-    header("Location: admin_projets.php");
-    exit();
-}
+$message = "";
+$projet = null;
+$categories = [];
 
-$id = intval($_GET["id"]);
-$result = mysqli_query($connexion, "SELECT * FROM projets WHERE id=$id");
+// Vérifier que l'ID est présent
+if (!isset($_GET["id"])) {
+    die("ID de projet manquant.");
+}
+$projet_id = (int)$_GET["id"];
+
+// Récupération du projet
+$sql_projet = "SELECT * FROM projets WHERE id = ?";
+$stmt = mysqli_prepare($connexion, $sql_projet);
+mysqli_stmt_bind_param($stmt, "i", $projet_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 $projet = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
 
 if (!$projet) {
-    header("Location: admin_projets.php");
-    exit();
+    die("Projet introuvable.");
+}
+
+// Récupération des catégories
+$sql_categories = "SELECT id, NomCategory FROM Categories";
+$result_categories = mysqli_query($connexion, $sql_categories);
+while ($row = mysqli_fetch_assoc($result_categories)) {
+    $categories[] = $row;
 }
 
 // Traitement du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $titre = mysqli_real_escape_string($connexion, $_POST["titre"]);
     $description = mysqli_real_escape_string($connexion, $_POST["description"]);
-    $imagePath = $projet["image"];
+    $categorie_id = (int) $_POST["categorie"];
+    $video = mysqli_real_escape_string($connexion, $_POST["video"]);
 
-    // Vérification et traitement de l'image si elle est modifiée
+    // Vérifie que la catégorie existe
+    $sql_check = "SELECT id FROM Categories WHERE id = ?";
+    $stmt_check = mysqli_prepare($connexion, $sql_check);
+    mysqli_stmt_bind_param($stmt_check, "i", $categorie_id);
+    mysqli_stmt_execute($stmt_check);
+    mysqli_stmt_store_result($stmt_check);
+    if (mysqli_stmt_num_rows($stmt_check) == 0) {
+        die("<p class='error-message'>Catégorie invalide.</p>");
+    }
+    mysqli_stmt_close($stmt_check);
+
+    $imagePath = $projet["image"]; // Garder l'image actuelle
+
+    // Nouvelle image ?
     if (!empty($_FILES["image"]["name"])) {
-        $target_dir = "../uploads/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $targetDir = "../uploads/";
+        $fileName = pathinfo($_FILES["image"]["name"], PATHINFO_FILENAME);
+        $fileName = preg_replace("/[^a-zA-Z0-9_-]/", "_", $fileName);
+        $fileType = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+        $fileName = uniqid() . "_" . $fileName . "." . $fileType;
+        $targetFilePath = $targetDir . $fileName;
 
-        // Vérifier si le fichier est une image
-        $check = getimagesize($_FILES["image"]["tmp_name"]);
-        if ($check !== false) {
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                // Supprimer l'ancienne image
-                if (file_exists($projet["image"])) {
-                    unlink($projet["image"]);
-                }
-                $imagePath = $target_file;
-            } else {
-                echo "Erreur lors de l'upload.";
-            }
+        $allowedTypes = ['jpg', 'jpeg', 'png'];
+        if (!in_array($fileType, $allowedTypes)) {
+            die("<p class='error-message'>Types autorisés : JPG, JPEG, PNG.</p>");
+        }
+
+        if ($_FILES["image"]["size"] > 10 * 1024 * 1024) {
+            die("<p class='error-message'>Fichier trop volumineux (max 10 Mo).</p>");
+        }
+
+        $checkImage = getimagesize($_FILES["image"]["tmp_name"]);
+        if ($checkImage === false) {
+            die("<p class='error-message'>Ce n'est pas une image valide.</p>");
+        }
+
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+            $imagePath = "uploads/" . $fileName;
         } else {
-            echo "Le fichier n'est pas une image.";
+            die("<p class='error-message'>Erreur lors de l'upload de la nouvelle image.</p>");
         }
     }
 
-    // Mise à jour du projet dans la base de données
-    $sql = "UPDATE projets SET titre='$titre', description='$description', image='$imagePath' WHERE id=$id";
-    if (mysqli_query($connexion, $sql)) {
-        header("Location: admin_Projet.php");
-        exit();
-    } else {
-        echo "Erreur : " . mysqli_error($connexion);
-    }
-}
+    // Mise à jour
+    $sql_update = "UPDATE projets SET titre = ?, description = ?, categorie_id = ?, image = ?, video = ? WHERE id = ?";
+    $stmt = mysqli_prepare($connexion, $sql_update);
+    mysqli_stmt_bind_param($stmt, "ssissi", $titre, $description, $categorie_id, $imagePath, $video, $projet_id);
 
+    if (mysqli_stmt_execute($stmt)) {
+        $message = "<p class='success-message'>Projet mis à jour avec succès !</p>";
+        // Recharger les données
+        $projet["titre"] = $titre;
+        $projet["description"] = $description;
+        $projet["categorie_id"] = $categorie_id;
+        $projet["image"] = $imagePath;
+        $projet["video"] = $video;
+    } else {
+        $message = "<p class='error-message'>Erreur lors de la mise à jour du projet.</p>";
+    }
+
+    mysqli_stmt_close($stmt);
+}
+mysqli_close($connexion);
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - Modifier un Projet</title>
+    <title>Administration - Modifier le projet</title>
     <link rel="stylesheet" href="../assets/css/admin_style.css">
 </head>
 <body>
-    <?php
-	require('admin_header.php');
-	?>
+<?php require('admin_header.php'); ?>
+<div class="container">
+    <h2>Modifier un Projet</h2>
+    <?= $message ?>
+    <form method="post" action="admin_modifyProjet.php?id=<?= $projet_id ?>" enctype="multipart/form-data" class="form-container">
+        <div class="form-group">
+            <label for="titre">Titre :</label>
+            <input type="text" name="titre" class="form-input" value="<?= htmlspecialchars($projet["titre"]) ?>" required>
+        </div>
 
-    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-    <div class="container">
-        <h2>Modifier un Projet</h2>
+        <div class="form-group">
+            <label for="categorie">Catégorie :</label>
+            <select name="categorie" class="form-input" required>
+                <option value="">-- Choisir une catégorie --</option>
+                <?php foreach ($categories as $cat): ?>
+                    <option value="<?= htmlspecialchars($cat['id']) ?>" <?= ($projet["categorie_id"] == $cat['id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($cat['NomCategory']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-        <form action="admin_modifyProjet.php?id=<?= $id ?>" method="post" enctype="multipart/form-data" class="form-modify">
-            <div class="form-group">
-                <label for="titre">Titre :</label>
-                <input type="text" name="titre" value="<?= htmlspecialchars($projet['titre']) ?>" class="form-input" required>
-            </div>
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea name="description" class="form-input" rows="4" required><?= htmlspecialchars($projet["description"]) ?></textarea>
+        </div>
 
-            <div class="form-group">
-                <label for="description">Description :</label>
-                <textarea name="description" class="form-input" required><?= htmlspecialchars($projet['description']) ?></textarea>
-            </div>
+        <div class="form-group">
+            <label for="video">Lien YouTube (facultatif) :</label>
+            <input type="url" name="video" class="form-input" value="<?= htmlspecialchars($projet["video"]) ?>">
+        </div>
 
-            <div class="form-group">
-                <label for="image">Image actuelle :</label>
-                <img src="<?= htmlspecialchars($projet['image']) ?>" alt="Image projet" width="150" class="current-image">
-            </div>
+        <div class="form-group">
+            <label>Image actuelle :</label>
+            <img src="../<?= $projet["image"] ?>" alt="Image projet" style="max-width: 200px;">
+        </div>
 
-            <div class="form-group">
-                <label for="image">Changer l'image :</label>
-                <input type="file" name="image" class="file-input" accept="image/*">
-            </div>
+        <div class="form-group">
+            <label for="image">Changer l’image :</label>
+            <input type="file" name="image" class="form-input" accept="image/*">
+        </div>
+        <div class="drop-zone" id="drop-zone">Glissez-déposez une image ici</div>
 
-            <button type="submit" class="btn-update">Mettre à jour</button>
-        </form>
+        <button type="submit" class="btn-submit">Mettre à jour</button>
+    </form>
+    <a href="admin_Projet.php" class="btn-back">Retour</a>
+</div>
 
-        <!-- Bouton de retour -->
-        <a href="admin_Projet.php" class="btn-back">Retour</a>
-    </div>
-
+<script src="../assets/js/drag_drop.js"></script>
 </body>
 </html>
