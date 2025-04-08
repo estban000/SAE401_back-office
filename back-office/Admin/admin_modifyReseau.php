@@ -1,25 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION["admin"])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
+require('session.php');
 require('../connexionTableSQL.php');
-
-$id = intval($_GET["id"]);
-$resultat = mysqli_query($connexion, "SELECT * FROM ReseauSociaux WHERE id=$id");
-$row = mysqli_fetch_assoc($resultat);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $NomReseau = mysqli_real_escape_string($connexion, $_POST["NomReseau"]);
-    $URL = mysqli_real_escape_string($connexion, $_POST["URL"]);
-    $Icon = mysqli_real_escape_string($connexion, $_POST["Icon"]);
-
-    mysqli_query($connexion, "UPDATE ReseauSociaux SET NomReseau='$NomReseau', URL='$URL', Icon='$Icon' WHERE id=$id");
-    header("Location: admin_Reseau.php");
-    exit();
-}
+require('gestion_modifyReseau.php');
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <h2>Modification du Réseau Social</h2>
 
-        <form method="post" class="edit-form">
+        <form method="post" class="form-container">
             <div class="form-group">
                 <label for="NomReseau">Nom du Réseau :</label>
                 <input type="text" id="NomReseau" name="NomReseau" value="<?= htmlspecialchars($row['NomReseau']) ?>" class="form-input" required>
@@ -55,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="Icon" name="Icon" value="<?= htmlspecialchars($row['Icon']) ?>" class="form-input" required>
             </div>
 
-            <button type="submit" class="btn-primary">Modifier</button>
+            <button type="submit" class="btn-submit">Modifier</button>
         </form>
 
         <!-- Bouton de retour -->

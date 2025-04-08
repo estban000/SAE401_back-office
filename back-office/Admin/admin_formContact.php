@@ -15,11 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Envoi de l'email
         if (mail($to, $subject, $body, $headers)) {
-            // Si le message a été envoyé avec succès, rediriger vers index.php avec un paramètre de succès
+            // Si le message a été envoyé avec succès, rediriger vers index.php avec le paramètre de succès
             header("Location: ../index.php?message=success");
             exit();  // Arrêter l'exécution du script après la redirection
         } else {
-            // Si l'envoi échoue, afficher un message d'erreur
             $error = "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.";
         }
     } else {

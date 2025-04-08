@@ -16,26 +16,7 @@
 		require('connexionTableSQL.php');
 		?>
 		<?php
-			// Récupération des catégories disponibles dans les projets
-			$categories_result = mysqli_query($connexion, "
-				SELECT DISTINCT c.id, c.NomCategory
-				FROM projets p
-				JOIN Categories c ON p.categorie_id = c.id
-			");
-
-			// Récupération de la catégorie sélectionnée via GET (si elle existe)
-			$categorie_filtre = isset($_GET['categorie']) ? (int) $_GET['categorie'] : 0;
-
-			// Récupération des projets
-			$sql = "SELECT * FROM projets";
-			if ($categorie_filtre > 0) {
-				$sql .= " WHERE categorie_id = $categorie_filtre";
-			}
-			$resultat = mysqli_query($connexion, $sql);
-
-
-		// Récupération des projets
-		//$resultat = mysqli_query($connexion, "SELECT * FROM projets");
+		require('filtre_Projet.php');
 		?>
 		<?php
 		require('header.php');
@@ -102,7 +83,15 @@
 									<?php if (!empty($row['video'])): ?>
 										<p>
 											<a href="<?= htmlspecialchars($row['video']) ?>" target="_blank" class="button small">
-												Voir la vidéo
+												Vidéo Link
+											</a>
+										</p>
+									<?php endif; ?>
+
+									<?php if (!empty($row['url_projet'])): ?>
+										<p>
+											<a href="<?= htmlspecialchars($row['url_projet']) ?>" target="_blank" class="button small">
+												Projet Website
 											</a>
 										</p>
 									<?php endif; ?>

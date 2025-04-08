@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION["admin"])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
+require('session.php');
 require('../connexionTableSQL.php');
 
 // Récupération des profils
@@ -22,7 +17,8 @@ $resultat = mysqli_query($connexion, "SELECT * FROM ProfileBlock");
 </head>
 <body>
     <?php require('admin_header.php'); ?>
-
+    
+    <!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Contenu Principal xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
     <div class="container">
         <h2>Gestion du Profile description</h2>
         <a href="admin_ajoutProfile.php" class="btn-add"><i class="fa fa-plus"></i> Ajouter</a>

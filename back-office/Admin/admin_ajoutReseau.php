@@ -1,12 +1,9 @@
 <?php
-session_start();
-if (!isset($_SESSION["admin"])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
+require('session.php');
 require('../connexionTableSQL.php');
+require('gestion_ajoutReseau.php');
 
+// soumission du formulaire
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NomReseau = mysqli_real_escape_string($connexion, $_POST["NomReseau"]);
     $URL = mysqli_real_escape_string($connexion, $_POST["URL"]);
@@ -50,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label for="URL">URL :</label>
+                <label for="URL">URL du réseau :</label>
                 <input type="url" id="URL" name="URL" class="form-input" required>
             </div>
 

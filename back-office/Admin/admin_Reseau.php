@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION["admin"])) {
-    header("Location: admin_login.php");
-    exit();
-}
-
+require('session.php');
 require('../connexionTableSQL.php');
 
 // Suppression d'un réseau social
