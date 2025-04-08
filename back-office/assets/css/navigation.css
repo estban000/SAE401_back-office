@@ -1,0 +1,75 @@
+/* Par défaut : les boutons sont en ligne */
+.navigation_bar {
+    display: flex;
+    flex-direction: row; /* Par défaut, en ligne */
+    justify-content: center;
+    padding: 0;
+    list-style-type: none; /* Retirer les puces des éléments de la liste */
+    margin: 0;
+}
+
+/* Large screens */
+@media screen and (max-width: 1280px) {
+    .navigation_bar {
+        flex-direction: row;  /* Reste en ligne pour les grands écrans */
+        justify-content: center;
+    }
+
+    .navigation_bar li {
+        margin: 15px;  /* Espacement entre les boutons */
+    }
+
+    .navigation_bar a {
+        font-size: 1.25em;
+    }
+}
+
+/* Medium screens */
+@media screen and (max-width: 980px) {
+    .navigation_bar {
+        flex-direction: row;  /* Reste en ligne */
+        justify-content: center;
+    }
+
+    .navigation_bar li {
+        margin: 15px;  /* Espacement entre les boutons */
+    }
+
+    .navigation_bar a {
+        font-size: 1.25em;
+    }
+}
+
+/* Small screens */
+@media screen and (max-width: 736px) {
+    .navigation_bar {
+        flex-direction: column;  /* Passer en colonne sur les petits écrans */
+        justify-content: center;
+    }
+
+    .navigation_bar li {
+        margin: 10px 0;  /* Espacement entre les boutons */
+    }
+
+    .navigation_bar a {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+}
+
+/* XSmall screens */
+@media screen and (max-width: 480px) {
+    .navigation_bar {
+        flex-direction: column;  /* Passer en colonne pour les très petits écrans */
+        justify-content: center;
+    }
+
+    .navigation_bar li {
+        margin: 5px 0;
+    }
+
+    .navigation_bar a {
+        font-size: 1.1em;
+        padding: 8px 16px;
+    }
+}

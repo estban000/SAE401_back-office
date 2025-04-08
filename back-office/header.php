@@ -7,7 +7,7 @@
             
 			<!-- Boutons de navigation -->
 		<nav>
-			<ul style="list-style: none; display: flex; gap: 0.6rem; margin-top: 1rem;">
+			<ul class="navigation_bar">
 				<li><a href="#one" class="button small">Profile</a></li>
 				<li><a href="#two" class="button small">Portfolio</a></li>
 				<li><a href="#three" class="button small">Contact me</a></li>
